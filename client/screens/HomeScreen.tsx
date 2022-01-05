@@ -1,18 +1,19 @@
-import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { Pressable } from 'react-native';
 
-import { DrawerNavigationParamList } from '../navigation/DrawerNavigation';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
+import { DrawerNavigationParamList } from '../navigation/DrawerNavigation';
+import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
+
 import ModalScreen from './ModalScreen';
 import NotFoundScreen from './NotFoundScreen';
 import TabOneScreen from './TabOneScreen';
 import TabTwoScreen from './TabTwoScreen';
-import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 
 type HomeScreenNavigationProp = DrawerNavigationProp<DrawerNavigationParamList, 'Home'>;
 

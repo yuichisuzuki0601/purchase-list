@@ -1,6 +1,8 @@
-import { StyleSheet, View, Button } from 'react-native';
-import { DrawerNavigationParamList } from '../navigation/DrawerNavigation';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
+import React from 'react';
+import { StyleSheet, View, Button } from 'react-native';
+
+import { DrawerNavigationParamList } from '../navigation/DrawerNavigation';
 
 type SecondScreenNavigationProp = DrawerNavigationProp<DrawerNavigationParamList, 'Second'>;
 

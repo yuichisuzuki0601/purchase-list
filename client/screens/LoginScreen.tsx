@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { ColorSchemeName } from 'react-native';
-import { StyleSheet, TextInput, Button } from 'react-native';
-import { Text, View } from '../components/Themed';
+import React, { useState } from 'react';
+import { ColorSchemeName, StyleSheet, TextInput, Button } from 'react-native';
+
 import Alert from '../components/Alert';
+import { Text, View } from '../components/Themed';
 
 export default function LoginScreen({ colorScheme }: { colorScheme: ColorSchemeName }) {
   const [email, setEmail] = useState('');

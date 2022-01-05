@@ -1,3 +1,4 @@
+import React from 'react';
 import AwesomeAlert from 'react-native-awesome-alerts';
 
 export interface AlertProps {

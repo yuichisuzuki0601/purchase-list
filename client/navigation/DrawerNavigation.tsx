@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { ColorSchemeName, TouchableOpacity } from 'react-native';
-import { NavigationContainer, DrawerActions, DefaultTheme, DarkTheme } from '@react-navigation/native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
 import { FontAwesome } from '@expo/vector-icons';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { NavigationContainer, DrawerActions, DefaultTheme, DarkTheme } from '@react-navigation/native';
+import React from 'react';
+import { ColorSchemeName, TouchableOpacity } from 'react-native';
 
 import HomeScreen from '../screens/HomeScreen';
 import SecondScreen from '../screens/SecondScreen';
