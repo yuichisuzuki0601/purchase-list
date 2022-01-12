@@ -7,11 +7,11 @@ import { ColorSchemeName, TouchableOpacity } from 'react-native';
 
 import AuthTokenContext from '../context/AuthTokenContext';
 import HomeScreen from '../screens/HomeScreen';
-import SecondScreen from '../screens/SecondScreen';
+import NfcScreen from '../screens/NfcScreen';
 
 export type DrawerNavigationParamList = {
   Home: undefined;
-  Second: undefined;
+  Nfc: undefined;
 };
 
 const DrawerDefaultTheme = {
@@ -85,11 +85,13 @@ export default function DrawerNavigation({ colorScheme }: { colorScheme: ColorSc
           })}
         />
         <Drawer.Screen
-          name="Second"
-          component={SecondScreen}
+          name="Nfc"
+          component={NfcScreen}
           options={({ navigation }) => ({
-            drawerIcon: ({ color }) => <DrawerIcon name="address-book" color={color} />,
-            headerLeft: () => <DrawerOpenButton navigation={navigation} />
+            drawerIcon: ({ color }) => <DrawerIcon name="rss" color={color} />,
+            drawerLabel: 'NFC管理',
+            headerLeft: () => <DrawerOpenButton navigation={navigation} />,
+            headerTitle: 'NFC管理'
           })}
         />
       </Drawer.Navigator>
