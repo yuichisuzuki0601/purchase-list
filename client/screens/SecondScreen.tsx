@@ -1,7 +1,8 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import React from 'react';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, Button } from 'react-native';
 
+import { View, Text } from '../components/Themed';
 import { DrawerNavigationParamList } from '../navigation/DrawerNavigation';
 
 type SecondScreenNavigationProp = DrawerNavigationProp<DrawerNavigationParamList, 'Second'>;
@@ -9,7 +10,6 @@ type SecondScreenNavigationProp = DrawerNavigationProp<DrawerNavigationParamList
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center'
   }
@@ -18,6 +18,8 @@ const styles = StyleSheet.create({
 export default function SecondScreen({ navigation }: { navigation: SecondScreenNavigationProp }) {
   return (
     <View style={styles.container}>
+      <Text>this is second screen.</Text>
+      <br />
       <Button onPress={() => navigation.goBack()} title="Go back Home" />
     </View>
   );
