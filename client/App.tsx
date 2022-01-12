@@ -1,22 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
-import React, { createContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import AuthTokenContext from './context/AuthTokenContext';
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import DrawerNavigation from './navigation/DrawerNavigation';
 import LoginScreen from './screens/LoginScreen';
-
-export const AuthTokenContext = createContext<{
-  authToken: string;
-  setAuthToken: React.Dispatch<React.SetStateAction<string>>;
-}>({
-  authToken: '',
-  setAuthToken: () => {
-    return;
-  }
-});
 
 export default function App() {
   const [authToken, setAuthToken] = useState('');

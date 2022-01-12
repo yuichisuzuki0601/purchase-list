@@ -2,10 +2,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useContext, useState } from 'react';
 import { Button, ColorSchemeName, StyleSheet, TextInput } from 'react-native';
 
-import { AuthTokenContext } from '../App';
 import Alert from '../components/Alert';
 import { MonoText } from '../components/StyledText';
 import { View } from '../components/Themed';
+import AuthTokenContext from '../context/AuthTokenContext';
 
 export default function LoginScreen({ colorScheme }: { colorScheme: ColorSchemeName }) {
   const { setAuthToken } = useContext(AuthTokenContext);

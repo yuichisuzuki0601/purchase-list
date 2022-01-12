@@ -5,7 +5,7 @@ import { NavigationContainer, DrawerActions, DefaultTheme, DarkTheme } from '@re
 import React, { useContext } from 'react';
 import { ColorSchemeName, TouchableOpacity } from 'react-native';
 
-import { AuthTokenContext } from '../App';
+import AuthTokenContext from '../context/AuthTokenContext';
 import HomeScreen from '../screens/HomeScreen';
 import SecondScreen from '../screens/SecondScreen';
 
@@ -44,7 +44,7 @@ DrawerDarkTheme = DrawerDefaultTheme;
 const DrawerOpenButton = ({ navigation }: { navigation: any }) => {
   return (
     <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
-      <FontAwesome size={30} style={{ margin: 15 }} name="bars" color="#fff" />
+      <FontAwesome size={15} style={{ margin: 15 }} name="bars" color="#fff" />
     </TouchableOpacity>
   );
 };
