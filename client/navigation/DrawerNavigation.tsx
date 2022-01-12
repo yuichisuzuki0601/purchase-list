@@ -1,9 +1,11 @@
 import { FontAwesome } from '@expo/vector-icons';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
 import { NavigationContainer, DrawerActions, DefaultTheme, DarkTheme } from '@react-navigation/native';
-import React from 'react';
+import React, { useContext } from 'react';
 import { ColorSchemeName, TouchableOpacity } from 'react-native';
 
+import { AuthTokenContext } from '../App';
 import HomeScreen from '../screens/HomeScreen';
 import SecondScreen from '../screens/SecondScreen';
 
@@ -54,9 +56,26 @@ const DrawerIcon = (props: { name: React.ComponentProps<typeof FontAwesome>['nam
 const Drawer = createDrawerNavigator<DrawerNavigationParamList>();
 
 export default function DrawerNavigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+  const { setAuthToken } = useContext(AuthTokenContext);
+
   return (
     <NavigationContainer theme={colorScheme === 'dark' ? DrawerDarkTheme : DrawerDefaultTheme}>
-      <Drawer.Navigator initialRouteName="Home">
+      <Drawer.Navigator
+        initialRouteName="Home"
+        drawerContent={(props) => (
+          <DrawerContentScrollView {...props}>
+            <DrawerItemList {...props} />
+            <DrawerItem
+              label="Logout"
+              icon={({ color }) => <DrawerIcon name="sign-out" color={color} />}
+              onPress={async () => {
+                await AsyncStorage.removeItem('authToken');
+                setAuthToken('');
+              }}
+            />
+          </DrawerContentScrollView>
+        )}
+      >
         <Drawer.Screen
           name="Home"
           component={HomeScreen}

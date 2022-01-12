@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
-import { ColorSchemeName, StyleSheet, TextInput, Button } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useContext, useState } from 'react';
+import { Button, ColorSchemeName, StyleSheet, TextInput } from 'react-native';
 
+import { AuthTokenContext } from '../App';
 import Alert from '../components/Alert';
-import { Text, View } from '../components/Themed';
+import { MonoText } from '../components/StyledText';
+import { View } from '../components/Themed';
 
 export default function LoginScreen({ colorScheme }: { colorScheme: ColorSchemeName }) {
+  const { setAuthToken } = useContext(AuthTokenContext);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isOpenAlert, setIsOpenAlert] = useState(false);
@@ -17,14 +22,17 @@ export default function LoginScreen({ colorScheme }: { colorScheme: ColorSchemeN
     setPassword(value);
   };
 
-  const login = () => {
+  const login = async () => {
     setIsOpenAlert(true);
+    const authToken = 'abcde';
+    await AsyncStorage.setItem('authToken', authToken);
+    setAuthToken(authToken);
   };
 
   return (
     <View style={styles.container}>
       <View>
-        <Text style={styles.title}>Login</Text>
+        <MonoText style={styles.title}>Login</MonoText>
       </View>
       <View>
         <TextInput style={styles.input} placeholder="email" value={email} onChangeText={onChangeEmail} />
