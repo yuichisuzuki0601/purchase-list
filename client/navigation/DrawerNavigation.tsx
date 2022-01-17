@@ -2,14 +2,17 @@ import { FontAwesome } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
 import { NavigationContainer, DrawerActions, DefaultTheme, DarkTheme } from '@react-navigation/native';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { ColorSchemeName, TouchableOpacity } from 'react-native';
 
+import Alert from '../components/Alert';
 import AuthTokenContext from '../context/AuthTokenContext';
+import AccountScreen from '../screens/AccountScreen';
 import HomeScreen from '../screens/HomeScreen';
 import NfcScreen from '../screens/NfcScreen';
 
 export type DrawerNavigationParamList = {
+  Account: undefined;
   Home: undefined;
   Nfc: undefined;
 };
@@ -56,6 +59,7 @@ const DrawerIcon = (props: { name: React.ComponentProps<typeof FontAwesome>['nam
 const Drawer = createDrawerNavigator<DrawerNavigationParamList>();
 
 export default function DrawerNavigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+  const [isOpenAlert, setIsOpenAlert] = useState(false);
   const { setAuthToken } = useContext(AuthTokenContext);
 
   return (
@@ -66,9 +70,16 @@ export default function DrawerNavigation({ colorScheme }: { colorScheme: ColorSc
           <DrawerContentScrollView {...props}>
             <DrawerItemList {...props} />
             <DrawerItem
-              label="Logout"
+              label="ログアウト"
               icon={({ color }) => <DrawerIcon name="sign-out" color={color} />}
-              onPress={async () => {
+              onPress={() => setIsOpenAlert(true)}
+            />
+            <Alert
+              isOpen={isOpenAlert}
+              title="ログアウト"
+              message="ログアウトしますね"
+              onClose={async () => {
+                setIsOpenAlert(false);
                 await AsyncStorage.removeItem('authToken');
                 setAuthToken('');
               }}
@@ -77,11 +88,23 @@ export default function DrawerNavigation({ colorScheme }: { colorScheme: ColorSc
         )}
       >
         <Drawer.Screen
+          name="Account"
+          component={AccountScreen}
+          options={({ navigation }) => ({
+            drawerIcon: ({ color }) => <DrawerIcon name="user" color={color} />,
+            drawerLabel: 'アカウント',
+            headerLeft: () => <DrawerOpenButton navigation={navigation} />,
+            headerTitle: 'アカウント'
+          })}
+        />
+        <Drawer.Screen
           name="Home"
           component={HomeScreen}
           options={({ navigation }) => ({
             drawerIcon: ({ color }) => <DrawerIcon name="home" color={color} />,
-            headerLeft: () => <DrawerOpenButton navigation={navigation} />
+            drawerLabel: 'ホーム',
+            headerLeft: () => <DrawerOpenButton navigation={navigation} />,
+            headerTitle: 'ホーム'
           })}
         />
         <Drawer.Screen
