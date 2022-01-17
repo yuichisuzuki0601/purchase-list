@@ -12,6 +12,7 @@ import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../typ
 import ModalScreen from './ModalScreen';
 import NotFoundScreen from './NotFoundScreen';
 import TabOneScreen from './TabOneScreen';
+import TabThreeScreen from './TabThreeScreen';
 import TabTwoScreen from './TabTwoScreen';
 
 type HomeScreenNavigationProp = DrawerNavigationProp<DrawerNavigationParamList, 'Home'>;
@@ -67,6 +68,15 @@ function BottomTabNavigator() {
         options={{
           title: 'Tab Two',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          headerShown: false
+        }}
+      />
+      <BottomTab.Screen
+        name="TabThree"
+        component={TabThreeScreen}
+        options={{
+          title: 'Tab Three',
+          tabBarIcon: ({ color }) => <TabBarIcon name="list" color={color} />,
           headerShown: false
         }}
       />
