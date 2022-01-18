@@ -1,12 +1,9 @@
 import { FontAwesome } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
 import { NavigationContainer, DrawerActions, DefaultTheme, DarkTheme } from '@react-navigation/native';
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import { ColorSchemeName, TouchableOpacity } from 'react-native';
 
-import Alert from '../components/Alert';
-import AuthTokenContext from '../context/AuthTokenContext';
 import AccountScreen from '../screens/AccountScreen';
 import HomeScreen from '../screens/HomeScreen';
 import NfcScreen from '../screens/NfcScreen';
@@ -58,10 +55,13 @@ const DrawerIcon = (props: { name: React.ComponentProps<typeof FontAwesome>['nam
 
 const Drawer = createDrawerNavigator<DrawerNavigationParamList>();
 
-export default function DrawerNavigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
-  const [isOpenAlert, setIsOpenAlert] = useState(false);
-  const { setAuthToken } = useContext(AuthTokenContext);
-
+export default function DrawerNavigation({
+  colorScheme,
+  openLogoutConfirm
+}: {
+  colorScheme: ColorSchemeName;
+  openLogoutConfirm: () => void;
+}) {
   return (
     <NavigationContainer theme={colorScheme === 'dark' ? DrawerDarkTheme : DrawerDefaultTheme}>
       <Drawer.Navigator
@@ -72,17 +72,7 @@ export default function DrawerNavigation({ colorScheme }: { colorScheme: ColorSc
             <DrawerItem
               label="ログアウト"
               icon={({ color }) => <DrawerIcon name="sign-out" color={color} />}
-              onPress={() => setIsOpenAlert(true)}
-            />
-            <Alert
-              isOpen={isOpenAlert}
-              title="ログアウト"
-              message="ログアウトしますね"
-              onClose={async () => {
-                setIsOpenAlert(false);
-                await AsyncStorage.removeItem('authToken');
-                setAuthToken('');
-              }}
+              onPress={openLogoutConfirm}
             />
           </DrawerContentScrollView>
         )}
