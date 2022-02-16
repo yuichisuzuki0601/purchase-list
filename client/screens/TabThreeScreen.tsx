@@ -1,14 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dimensions, FlatList, StyleSheet } from 'react-native';
 
+import { apiGet } from '../ApiClient';
 import { Text, View } from '../components/Themed';
-import AuthTokenContext from '../context/AuthTokenContext';
 
 const data = () => {
   const random = () => Math.random().toString(32).substring(2);
   const list = [];
   for (let i = 1; i <= 100; ++i) {
-    list.push({ id: random(), number: i, name: random() });
+    list.push({ id: i, name: random() });
   }
   return list;
 };
@@ -20,13 +20,24 @@ const Item = ({ number, name }: { number: number; name: string }) => (
 );
 
 export default function TabThreeScreen() {
-  const { authToken } = useContext(AuthTokenContext);
+  const [list, setList] = useState(data());
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setList(await apiGet('hello'));
+      } catch (e) {
+        console.log(e);
+      }
+    })();
+  }, []);
+
   return (
     <View style={styles.container}>
       <FlatList
-        data={data()}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <Item number={item.number} name={`${item.name}: ${authToken}`} />}
+        data={list}
+        keyExtractor={(item) => String(item.id)}
+        renderItem={({ item }) => <Item number={item.id} name={item.name} />}
       />
     </View>
   );
@@ -45,6 +56,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginVertical: 1,
     padding: 20,
+    //useWindowDimensionsが推奨らしい
     width: Dimensions.get('screen').width
   },
   itemName: {

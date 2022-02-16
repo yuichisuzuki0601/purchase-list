@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useContext, useState } from 'react';
 import { Button, ColorSchemeName, StyleSheet, TextInput } from 'react-native';
 
+import { apiPost } from '../ApiClient';
 import Alert from '../components/Alert';
 import { MonoText } from '../components/StyledText';
 import { View } from '../components/Themed';
@@ -23,10 +24,17 @@ export default function LoginScreen({ colorScheme }: { colorScheme: ColorSchemeN
   };
 
   const login = async () => {
-    setIsOpenAlert(true);
-    const authToken = 'abcde';
-    await AsyncStorage.setItem('authToken', authToken);
-    setAuthToken(authToken);
+    const formData = new FormData();
+    formData.append('loginId', email);
+    formData.append('password', password);
+    try {
+      const token = await apiPost('login', formData);
+      await AsyncStorage.setItem('Authorization', token);
+      setAuthToken(token);
+    } catch (e) {
+      setIsOpenAlert(true);
+      console.error(e);
+    }
   };
 
   return (

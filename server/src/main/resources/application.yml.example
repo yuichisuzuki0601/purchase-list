@@ -1,0 +1,25 @@
+ysd:
+  security:
+    cors:
+      mapping: /**
+      method: "*"
+      origins:
+        - http://localhost:8080
+        - https://localhost:8080
+    jwt:
+      secretKey: *** 32bit's key here ***
+      id: ysd
+      issuer: https://ysd.com
+      audiences:
+        - https://one.ysd.com
+        - https://two.ysd.com
+      subject: ysd-security
+      expirationTime: 24 #[hour]
+    login:
+      url: /login
+    logout:
+      url: /logout
+    open:
+      urls:
+        - /open-one/**
+        - /open-two/**

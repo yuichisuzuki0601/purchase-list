@@ -1,4 +1,4 @@
-package jp.co.ysdev.purchaselist.controller;
+package jp.co.ysd.purchaselist.controller;
 
 import java.util.List;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import jp.co.ysdev.purchaselist.model.DummyModel;
+import jp.co.ysd.purchaselist.model.DummyModel;
 
 @RestController
 public class DummyController {

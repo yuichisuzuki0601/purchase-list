@@ -1,4 +1,4 @@
-package jp.co.ysdev.purchaselist.model;
+package jp.co.ysd.purchaselist.model;
 
 import lombok.Data;
 

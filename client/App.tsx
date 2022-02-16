@@ -17,7 +17,7 @@ export default function App() {
   const [isOpenAlert, setIsOpenAlert] = useState(false);
 
   useEffect(() => {
-    (async () => setAuthToken((await AsyncStorage.getItem('authToken')) || ''))();
+    (async () => setAuthToken((await AsyncStorage.getItem('Authorization')) || ''))();
   }, []);
 
   const isLoadingComplete = useCachedResources();
@@ -41,7 +41,7 @@ export default function App() {
           title="ログアウト"
           message="ログアウトしますね"
           onClose={async () => {
-            await AsyncStorage.removeItem('authToken');
+            await AsyncStorage.removeItem('Authorization');
             setAuthToken('');
             setIsOpenAlert(false);
           }}
